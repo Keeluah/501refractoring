@@ -149,6 +149,10 @@ public class Player extends Element {
 			pulseDir = 1;
 		}
 
+		colorPlayer(graphics, sheen);
+    }
+
+	private void colorPlayer(Graphics2D graphics, Color sheen) {
 		graphics.setColor(graphics.getColor());
 		graphics.fillRect(getElementX() - playerRadius + 2, getElementY() - playerRadius + 2,
                 2 * playerRadius - 4, 2 * playerRadius - 4);
@@ -160,7 +164,7 @@ public class Player extends Element {
 		graphics.setColor(sheen);
 		graphics.fillRect(getElementX() - playerRadius, getElementY() - playerRadius,
                 2 * playerRadius, 20);
-    }
+	}
 
     /**
     * Checks if player is hitting the edges/bounds of the map. Adjusts player
@@ -187,6 +191,7 @@ public class Player extends Element {
             setElementY(WINDOW_HEIGHT - playerRadius);
         }
     }
+
 
 	/**
 	* Determines if the player is within a wall; if the player is within a wall,

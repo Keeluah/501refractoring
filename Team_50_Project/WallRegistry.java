@@ -25,7 +25,7 @@ public class WallRegistry {
 	*                 to the new WallRegistry
 	*/
     public WallRegistry(Collection<Wall> wallList) {
-        registry = new ArrayList(wallList);
+        registry = new ArrayList<Wall>(wallList);
     }
 
 	/**
@@ -49,7 +49,7 @@ public class WallRegistry {
 	* Returns a copy of the registry.
 	* @return a copy of the registry
 	*/
-    public Collection getRegistry() {
-        return new ArrayList(registry);
+    public Collection<Wall> getRegistry() {
+        return new ArrayList<Wall>(registry);
     }
 }

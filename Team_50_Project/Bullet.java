@@ -11,6 +11,7 @@ import java.util.Collection;
  * @version 0.03
  * @since March 17, 2017
  */
+
 public class Bullet {
 
 	private final Dimension screenSize =
@@ -63,7 +64,10 @@ public class Bullet {
      *            wall or the edge of the map;
      *            <code>false</code> if the bullet is not colliding with
      *            any wall or edge of the map
-     *
+     *s the bunny girl 3/2 that has on dmg stick burn 1 up to twice that can be thrice with the event
+Bunko, yes
+The event has on reverse burn 1 always
+So it helps her proc the condition of "when dmg dealt by this isn't canceled"
      */
     public boolean update(WallRegistry reg) {
         if (canMove){

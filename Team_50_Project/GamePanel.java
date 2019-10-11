@@ -112,37 +112,44 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 
 			versusGraphic.resetCounters();
 
-            // Main game loop. Everything is updated in this loop. Thread pauses
-			// for a short period every time the loop iterates to maintain
-			// a constant update frequency/FPS.
-            while (gameRunning && player1.getPlayerLives() >
-				0 && player2.getPlayerLives() > 0) {
-                startTime = System.nanoTime();
-
-                gameUpdate();
-                gameRender();
-                gameDraw();
-
-                diffTimeMillis = (System.nanoTime() - startTime) / 1000000;
-                waitTime = targetTime - diffTimeMillis;
-
-                try {
-                    Thread.sleep(waitTime);
-                } catch (Exception e) {
-                }
-
-                totalTime += System.nanoTime() - startTime;
-                frameCount++;
-
-                if (frameCount == maxFrameRate) {
-                    frameCount = 0;
-                    totalTime = 0;
-                }
-            }
+            gameThread(gameRunning, totalTime, frameCount, maxFrameRate, targetTime);
             gameOver();
         }
         return;
     }
+
+	private void gameThread(boolean gameRunning, long totalTime, int frameCount, int maxFrameRate, long targetTime) {
+		long startTime;
+		long diffTimeMillis;
+		long waitTime;
+		// Main game loop. Everything is updated in this loop. Thread pauses
+		// for a short period every time the loop iterates to maintain
+		// a constant update frequency/FPS.
+		while (gameRunning && player1.getPlayerLives() >
+			0 && player2.getPlayerLives() > 0) {
+		    startTime = System.nanoTime();
+
+		    gameUpdate();
+		    gameRender();
+		    gameDraw();
+
+		    diffTimeMillis = (System.nanoTime() - startTime) / 1000000;
+		    waitTime = targetTime - diffTimeMillis;
+
+		    try {
+		        Thread.sleep(waitTime);
+		    } catch (Exception e) {
+		    }
+
+		    totalTime += System.nanoTime() - startTime;
+		    frameCount++;
+
+		    if (frameCount == maxFrameRate) {
+		        frameCount = 0;
+		        totalTime = 0;
+		    }
+		}
+	}
 
     /**
     * Decides what color the given string correlates to and returns it.

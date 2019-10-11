@@ -30,7 +30,7 @@ public class Map {
 	/**
 	* Reads the specified map from a text file.
 	*/
-    public void readTxt() throws FileNotFoundException{
+    public void readMapFile() throws FileNotFoundException{
         Scanner s = null;
         int x, y, width, height;
 

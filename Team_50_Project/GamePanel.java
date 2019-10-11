@@ -63,7 +63,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
         player1Color = toColor(p1clr);
         player2Color = toColor(p2clr);
         mapNum = map;
-        super.setPreferredSize(new Dimension(WINDOW_WIDTH, WINDOW_HEIGHT));
+        super.setPreferredSize(new Dimension(getWindowWidth(), getWindowHeight()));
         super.setFocusable(true);
         super.requestFocus();
     }
@@ -94,7 +94,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
             gameRunning = true;
 
             //Creates the game image/drawing surface with the size of the window.
-            image = new BufferedImage(WINDOW_WIDTH, WINDOW_HEIGHT,
+            image = new BufferedImage(getWindowWidth(), getWindowHeight(),
 				BufferedImage.TYPE_INT_RGB);
             //Creates the graphics object.
             graphics = (Graphics2D) image.getGraphics();
@@ -175,9 +175,9 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
      * Initializes all major instances used in the game.
      */
     private void gameStart() {
-        Map map = new Map(WINDOW_WIDTH,WINDOW_HEIGHT,mapNum);
+        Map map = new Map(getWindowWidth(),getWindowHeight(),mapNum);
         try {
-            map.readTxt();
+            map.readMapFile();
 
         } catch (FileNotFoundException e) {
             Object[] options = {"OK"};
@@ -193,7 +193,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
         // ***
         player1 = new Player(registry, 100, 100, player1Color);
         player2 = new Player(
-          registry, WINDOW_WIDTH - 100, WINDOW_HEIGHT - 100, player2Color);
+          registry, getWindowWidth() - 100, getWindowHeight() - 100, player2Color);
 
 		versusGraphic = new VersusGraphic(player1, player2);
 
@@ -229,22 +229,22 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 
         // Moves every bullet then checks to see if it is colliding with a wall,
 		// edge of map or a player.
-        for (int counter = 0; counter < bullets.size(); counter++) {
-            boolean removeBullet = bullets.get(counter).update(registry);
-            boolean hitP1 = bullets.get(counter).hitPlayer(player1);
-            boolean hitP2 = bullets.get(counter).hitPlayer(player2);
+        for (int bulletCount = 0; bulletCount < bullets.size(); bulletCount++) {
+            boolean removeBullet = bullets.get(bulletCount).update(registry);
+            boolean hitP1 = bullets.get(bulletCount).hitPlayer(player1);
+            boolean hitP2 = bullets.get(bulletCount).hitPlayer(player2);
 
             if (removeBullet) {
-                bullets.remove(counter);
-                counter--;
+                bullets.remove(bulletCount);
+                bulletCount--;
             }
 
             if (hitP1) {
-                counter = bulletHit(player1, counter);
+                bulletCount = bulletHit(player1, bulletCount);
             }
 
             if (hitP2) {
-               counter = bulletHit(player2, counter);
+               bulletCount = bulletHit(player2, bulletCount);
             }
 
         }
@@ -260,7 +260,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 
 		//Draws the background
         graphics.setColor(BACK_GROUND_COLOR);
-        graphics.fillRect(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
+        graphics.fillRect(0, 0, getWindowWidth(), getWindowHeight());
 
         //Draws both players
         player1.drawPlayer(graphics);
@@ -272,8 +272,8 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 		}
 
         //Draws each bullet in list
-        for (int counter = 0; counter < bullets.size(); counter++) {
-            bullets.get(counter).draw(graphics);
+        for (int bulletCount = 0; bulletCount < bullets.size(); bulletCount++) {
+            bullets.get(bulletCount).draw(graphics);
         }
 
         player1.getHealthBar().drawHealthBar(graphics, player1);
@@ -291,22 +291,22 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
      * Draws the image to the window.
      */
     private void gameDraw() {
-        Graphics graphics2 = this.getGraphics();
-        graphics2.drawImage(image, 0, 0, null);
-        graphics2.dispose();
+        Graphics gameGraphics = this.getGraphics();
+        gameGraphics.drawImage(image, 0, 0, null);
+        gameGraphics.dispose();
     }
 
     /**
      * Deals damage to the player and removes the bullet from the list.
      * @param player  the bullet that hit the player
-     * @param counter the location of the bullet in the list
+     * @param bulletCount the location of the bullet in the list
      * @return        returns counter subtracted by one
      */
-    private int bulletHit(Player player, int counter) {
+    private int bulletHit(Player player, int bulletCount) {
         player.hit();
-        bullets.remove(counter);
-        counter--;
-        return counter;
+        bullets.remove(bulletCount);
+        bulletCount--;
+        return bulletCount;
     }
 
     /**
@@ -507,4 +507,12 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
             player2.setPlayerIsFiring(false);
         }
     }
+
+	public static int getWindowWidth() {
+		return WINDOW_WIDTH;
+	}
+
+	public static int getWindowHeight() {
+		return WINDOW_HEIGHT;
+	}
 }

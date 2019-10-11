@@ -418,20 +418,15 @@ public class Menu extends JPanel {
 	* @return the number of the map to load
 	*/
     public int getMapNum() {
-        switch(mapName){
-            case "Windmill":
-                mapNum = 1;
-                break;
-            case "Camera":
-                mapNum = 2;
-                break;
-            case "Snake":
-                mapNum = 3;
-                break;
-            case "Empty":
-                mapNum = 4;
-                break;
-        }
+    	if(mapName.equalsIgnoreCase("Windmill")) {
+    		mapNum = 1;
+    	} else if(mapName.equalsIgnoreCase("Camera")) {
+    		mapNum = 2;
+    	} else if(mapName.equalsIgnoreCase("Snake")) {
+    		mapNum = 3;
+    	} else if(mapName.equalsIgnoreCase("Empty")) {
+    		mapNum = 4;
+    	}
         return mapNum;
     }
 	

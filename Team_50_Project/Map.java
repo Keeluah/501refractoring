@@ -35,7 +35,7 @@ public class Map {
         int x, y, width, height;
 
         s = new Scanner(
-			new BufferedReader(new FileReader(text(mapNum))));
+			new BufferedReader(new FileReader(mapTextFile(mapNum))));
         while(s.hasNext()){
             x = dimension(s.next());
             y = dimension(s.next());
@@ -154,18 +154,16 @@ public class Map {
 	*               wants to load
 	* @return       the name of the map file to load
 	*/
-    public String text(int mapNum){
+    public String mapTextFile(int mapNum){
         String map = "map1.txt";
-        switch(mapNum){
-            
-            case 1: map = "map1.txt";
-                    break;
-            case 2: map = "map2.txt";
-                    break;
-            case 3: map = "map3.txt";
-                    break;
-            case 4: map = "map4.txt";
-                    break;
+        if(mapNum == 2) {
+        	map = "map2.txt";
+        }
+        else if(mapNum == 3) {
+        	map = "map3.txt";
+        }
+        else if(mapNum == 4) {
+        	map = "map4.txt";
         }
         return map;
     }

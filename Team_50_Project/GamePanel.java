@@ -151,22 +151,17 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
     */
     private Color toColor(String clr){
       Color color = Color.RED;
-      switch(clr){
-        case "Red":
-          color = Color.RED;
-          break;
-        case "Green":
-          color = Color.GREEN;
-          break;
-        case "Blue":
-          color = Color.BLUE;
-          break;
-        case "Orange":
-          color = Color.ORANGE;
-          break;
-        case "Magenta":
-          color = Color.MAGENTA;
-		  break;
+      if(clr.equalsIgnoreCase("Green")) {
+    	  color = Color.GREEN;
+      }
+      else if(clr.equalsIgnoreCase("Blue")) {
+    	  color = Color.BLUE;
+      }
+      else if(clr.equalsIgnoreCase("Orange")) {
+    	  color = Color.ORANGE;
+      }
+      else if(clr.equalsIgnoreCase("Magenta")) {
+    	  color = Color.MAGENTA;
       }
       return color;
     }
